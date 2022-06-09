@@ -24,7 +24,6 @@ const AddApiary = ({ setApiarys, setDisplayAddApiary }) => {
       if (res.status === 201) {
         setApiarys((prev) => [...prev, res.data]);
         setDisplayAddApiary(false);
-        setFormValues(defFormValues);
       }
     } catch (error) {
       setErrorMessage(error.response.data.message);

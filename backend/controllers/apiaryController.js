@@ -38,8 +38,7 @@ const createApiary = asyncHandler(async (req, res) => {
         String(increaseApiaryNumber + 1)
       );
     } else {
-      res.status(400);
-      throw new Error("Brak pasiek");
+      addationalNumber = "00001";
     }
   }
 
