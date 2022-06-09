@@ -4,6 +4,7 @@ import ApiaryList from "./components/ApiaryList";
 import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
+import AddApiary from "./components/AddApiary";
 function App() {
   const [apiarys, setApiarys] = useState([]);
 
@@ -22,6 +23,7 @@ function App() {
       <header className="app__header">
         <h2>Bee garden</h2> <AiOutlinePlusCircle />
       </header>
+      <AddApiary />
       <main className="app__main">
         <ApiaryList apiarys={apiarys} />
       </main>
