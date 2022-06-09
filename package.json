@@ -1,0 +1,25 @@
+{
+  "name": "bee-garden",
+  "version": "1.0.0",
+  "description": "Tematem zadania są pszczoły, gospodarka pasieczna i to, co Kubuś Puchatek lubi najbardziej, czyli miodek. A zatem do dzieła!",
+  "main": "index.js",
+  "scripts": {
+    "server": "nodemon backend/server.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GrzegorzBanaszak/bee-garden.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GrzegorzBanaszak/bee-garden/issues"
+  },
+  "homepage": "https://github.com/GrzegorzBanaszak/bee-garden#readme",
+  "devDependencies": {
+    "concurrently": "^7.2.1"
+  }
+}
