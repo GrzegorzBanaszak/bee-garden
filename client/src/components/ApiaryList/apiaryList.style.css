@@ -1,0 +1,17 @@
+.apiarys {
+    color: #3A3637;
+}
+
+.apiarys__header {
+    padding: 1rem;
+    margin: 0 1rem;
+    text-align: center;
+    font-size: 2rem;
+    border-bottom: 2px #3A3637 solid;
+}
+
+.apiarys__list {
+    margin: 1rem;
+    list-style-type: none;
+
+}
