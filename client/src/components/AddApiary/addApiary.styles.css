@@ -24,7 +24,13 @@
     font-weight: 500;
 }
 
-.form__group input[type=text] {
+.form__error {
+    text-align: center;
+    color: #c62828;
+    font-weight: 600;
+}
+
+.form__group input {
     padding: 0.7rem;
     border-radius: 25px;
     border: none;
@@ -43,6 +49,7 @@
     color: white;
     display: block;
     width: 100%;
+    cursor: pointer;
 }
 
 @media (min-width: 768px) {
