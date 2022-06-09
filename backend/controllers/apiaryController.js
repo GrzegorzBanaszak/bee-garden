@@ -20,7 +20,7 @@ const createApiary = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("Nazwa pasieki jest wymagana");
   }
-  if (number && number.length > 5) {
+  if (number.length > 5) {
     res.status(400);
     throw new Error("Numer pasieki może zawierać maksymalnie 5 cyfr");
   }
