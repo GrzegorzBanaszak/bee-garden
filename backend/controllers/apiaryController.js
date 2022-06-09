@@ -18,9 +18,12 @@ const createApiary = asyncHandler(async (req, res) => {
   let addationalNumber = "";
   if (!name) {
     res.status(400);
-    throw new Error("Name is required");
+    throw new Error("Nazwa pasieki jest wymagana");
   }
-
+  if (number && number.length > 5) {
+    res.status(400);
+    throw new Error("Numer pasieki może zawierać maksymalnie 5 cyfr");
+  }
   //Check if number is null
   //If number is null increment lost apiary number and generate addational number
   if (number) {
@@ -36,7 +39,7 @@ const createApiary = asyncHandler(async (req, res) => {
       );
     } else {
       res.status(400);
-      throw new Error("There is no apiary");
+      throw new Error("Brak pasiek");
     }
   }
 
@@ -47,7 +50,7 @@ const createApiary = asyncHandler(async (req, res) => {
 
   if (!apiary) {
     res.status(400);
-    throw new Error("Apiary is not created");
+    throw new Error("Wystąpił bład przy tworzeniu pasieki");
   }
 
   res.status(201).json(apiary);
