@@ -2,6 +2,8 @@ const asyncHandler = require("express-async-handler");
 const Apiary = require("../models/apiaryModel");
 const validateAddationalNumber = require("../utilis/validateAddationalNumber");
 const generateApiaryNumer = require("../utilis/generateApiaryNumber");
+const getYesterdayAndTomorrowDate = require("../utilis/getYesterdayAndTomorrowDate");
+const getLostAutoincrementNumber = require("../utilis/getLostAutoincrementNumber");
 // @route   GET api/apiary/
 // @desc    Get all apiaries
 // @access  Public
@@ -29,13 +31,26 @@ const createApiary = asyncHandler(async (req, res) => {
   if (number) {
     addationalNumber = validateAddationalNumber(number);
   } else {
-    const apiarys = await Apiary.find().sort({ createdAt: -1 });
+    //Get apiarys from today
+    const { today, tomorrow } = getYesterdayAndTomorrowDate();
+    const apiarys = await Apiary.find().find({
+      createdAt: {
+        $gte: today,
+        $lte: tomorrow,
+      },
+    });
+
+    //Check if apiarys is empty
     if (apiarys.length > 0) {
-      const increaseApiaryNumber = Number(
-        apiarys[0].apiaryNumber.toString().slice(8, 13).replace(/^0+/, "")
-      );
+      const numbersList = apiarys.reduce((acc, curr) => {
+        acc.push(
+          Number(curr.apiaryNumber.toString().slice(8, 13).replace(/^0+/, ""))
+        );
+        return acc;
+      }, []);
+
       addationalNumber = validateAddationalNumber(
-        String(increaseApiaryNumber + 1)
+        String(getLostAutoincrementNumber(numbersList))
       );
     } else {
       addationalNumber = "00001";
