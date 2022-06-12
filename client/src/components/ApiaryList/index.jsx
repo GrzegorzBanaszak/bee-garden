@@ -1,23 +1,20 @@
 import "./apiaryList.style.css";
 import Apiary from "../Apiary";
 import { useState } from "react";
-
-const defSortingParams = {
-  value: "",
-  sortBy: "createdAt",
-};
-
+import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
 const ApiaryList = ({ apiarys }) => {
-  const [sortingParams, setSortingParams] = useState(defSortingParams);
+  const [sortingParams, setSortingParams] = useState("");
+  const [sortingOrder, setSortingOrder] = useState(true);
 
-  const filterListHandelr = (item) => {
-    if (sortingParams.sortBy === "createdAt") {
-      const data = new Date(item.createdAt);
-      return data.toLocaleDateString().includes(sortingParams.value);
-    }
-
-    if (sortingParams.sortBy === "apiaryNumber") {
-      return item.apiaryNumber.toString().includes(sortingParams.value);
+  const filterListHandler = (item) => {
+    const data = new Date(item.createdAt);
+    return data.toLocaleDateString().includes(sortingParams);
+  };
+  const sortingListHandler = (a, b) => {
+    if (sortingOrder) {
+      return a.apiaryNumber > b.apiaryNumber ? 1 : -1;
+    } else {
+      return a.apiaryNumber < b.apiaryNumber ? 1 : -1;
     }
   };
   return (
@@ -26,24 +23,21 @@ const ApiaryList = ({ apiarys }) => {
       <div className="apiarys__sort">
         <input
           className="apiarys__sort--element"
-          placeholder="Szukaj"
-          onChange={(e) =>
-            setSortingParams((prev) => ({ ...prev, value: e.target.value }))
-          }
+          placeholder="Wyszukaj po dacie dodania"
+          onChange={(e) => setSortingParams(e.target.value)}
         />
-        <select
-          className="apiarys__sort--element"
-          onChange={(e) =>
-            setSortingParams({ value: "", sortBy: e.target.value })
-          }
+        <button
+          className="apiarys__sort--button"
+          onClick={() => setSortingOrder((prev) => !prev)}
         >
-          <option value="createdAt">Data utworzenia</option>
-          <option value="apiaryNumber">Numer pasieki</option>
-        </select>
+          Sortuj po numerze pasiek{" "}
+          {sortingOrder ? <IoMdArrowDropdown /> : <IoMdArrowDropup />}
+        </button>
       </div>
       <ul className="apiarys__list">
         {apiarys
-          .filter(filterListHandelr)
+          .sort(sortingListHandler)
+          .filter(filterListHandler)
           .map(({ _id, name, apiaryNumber, createdAt }) => (
             <li key={_id}>
               <Apiary
